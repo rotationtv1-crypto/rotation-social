@@ -1,8 +1,10 @@
 name: Deploy to Deno
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,13 +16,24 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      - name: Deploy
+
+      - name: Require Deno Deploy token
         env:
           DENO_DEPLOY_TOKEN: ${{ secrets.DENO_DEPLOY_TOKEN }}
         run: |
           if [ -z "$DENO_DEPLOY_TOKEN" ]; then
-            echo "DENO_DEPLOY_TOKEN missing — skip live Deno deploy"
-            exit 0
+            echo "::error::DENO_DEPLOY_TOKEN is not set. Add it under Settings > Secrets and variables > Actions."
+            exit 1
           fi
+
+      - name: Deploy
+        env:
+          DENO_DEPLOY_TOKEN: ${{ secrets.DENO_DEPLOY_TOKEN }}
+        run: |
+          PROJECT="${{ vars.DENO_DEPLOY_PROJECT }}"
+          if [ -z "$PROJECT" ]; then
+            PROJECT="rotation-social"
+          fi
+          echo "Deploying Deno project: $PROJECT"
           deno install -gArf jsr:@deno/deployctl
-          deployctl deploy --project="${{ secrets.DENO_DEPLOY_PROJECT || 'rotation-social' }}" --entrypoint=deno/main.ts --prod
+          deployctl deploy --project="$PROJECT" --entrypoint=deno/main.ts --prod
