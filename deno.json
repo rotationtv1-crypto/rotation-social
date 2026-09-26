@@ -1,0 +1,7 @@
+{
+  "name": "rotation-social",
+  "tasks": {
+    "start": "deno run --allow-net --allow-read --allow-env --unstable-kv deno/main.ts",
+    "dev": "deno run --watch --allow-net --allow-read --allow-env --unstable-kv deno/main.ts"
+  }
+}
