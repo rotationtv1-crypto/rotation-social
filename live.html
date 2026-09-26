@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Rotation Live</title>
+  <meta name="theme-color" content="#050505">
+  <link rel="manifest" href="create-manifest.json">
+  <style>
+    :root{--bg:#050505;--line:#1F1F28;--cyan:#00F2FE;--pink:#FF007A;--violet:#7928CA;--ink:#F4F4F8;--muted:#8B8B9A}
+    *{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;background:#000;color:var(--ink);font-family:-apple-system,sans-serif}
+    button,input{font:inherit;color:inherit}a{color:var(--cyan)}
+    .app{max-width:480px;margin:0 auto;min-height:100dvh;position:relative}
+    .stage{min-height:70dvh;background:#111} .hud{padding:16px}
+    .follow{background:var(--cyan);color:#041418;border:0;border-radius:999px;padding:6px 10px;font-weight:800}
+    .page{padding:14px 14px 100px;background:var(--bg);min-height:100dvh}
+    .hint{color:var(--muted);font-size:.78rem}
+    .btn{border:0;border-radius:999px;padding:12px 16px;font-weight:800;background:var(--cyan);color:#041418}
+    nav.foot{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(480px,100%);display:grid;grid-template-columns:repeat(4,1fr);background:#050505f0;border-top:1px solid var(--line);padding:8px 0 calc(8px + env(safe-area-inset-bottom))}
+    nav.foot a{color:var(--muted);text-align:center;text-decoration:none;font-size:.62rem;text-transform:uppercase}
+  </style>
+</head>
+<body>
+  <div class="app" id="app"></div>
+  <script src="api-config.js"></script>
+  <script src="live-app.js"></script>
+</body>
+</html>

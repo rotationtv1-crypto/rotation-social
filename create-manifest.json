@@ -1,0 +1,8 @@
+{
+  "name": "Rotation Create",
+  "short_name": "Rotation",
+  "start_url": "./live.html",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505"
+}
