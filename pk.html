@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RotationTV · PK Battle</title>
+  <style>
+    :root{--bg:#06050c;--purple:#6C5CE7;--pink:#ff4ecd;--cyan:#22e3ff;--gold:#ffd166;--text:#f6f3ff;--muted:#9b93b8}
+    *{box-sizing:border-box;margin:0;padding:0}html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif}
+    header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid #ffffff14}
+    .brand{font-weight:800}.brand small{display:block;color:var(--muted);letter-spacing:.16em;font-size:10px}
+    .pill{color:#ff7384;font-size:12px;font-weight:700}
+    .wrap{max-width:720px;margin:0 auto;padding:16px}
+    .vs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .card{border-radius:16px;padding:16px;background:#120e1d;border:1px solid #ffffff14}
+    .card.pick{outline:2px solid #fff}
+    .bar{display:flex;height:12px;border-radius:99px;overflow:hidden;background:#161225;margin:14px 0}
+    .l{background:var(--cyan)}.r{background:var(--pink);margin-left:auto}
+    .gifts{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+    button{border:0;border-radius:12px;padding:10px 12px;background:#171326;color:#fff;font-weight:700;cursor:pointer}
+    button.primary{background:linear-gradient(90deg,var(--purple),var(--pink))}
+    #status{color:var(--gold);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">RotationTV<small>PK NETWORK</small></div>
+    <div class="pill">LIVE · CH 06</div>
+    <div>RotationPay <b id="bal">2,480</b> ★</div>
+  </header>
+  <div class="wrap">
+    <div id="status">Round 1 · Single PK</div>
+    <div class="vs">
+      <article class="card pick" id="cardL"><b>POLY KINGDOM</b><div>host</div></article>
+      <article class="card" id="cardR"><b>NovaReign</b><div>challenger</div></article>
+    </div>
+    <div class="bar"><div class="l" id="barL" style="width:54%"></div><div class="r" id="barR" style="width:46%"></div></div>
+    <div class="gifts">
+      <button type="button" data-cost="1" data-name="Rose">🌹 1★</button>
+      <button type="button" data-cost="100" data-name="Mask">🦋 100★</button>
+      <button type="button" data-cost="999" data-name="Crystal">🔮 999★</button>
+      <button type="button" data-cost="10000" data-name="Queen">👑 10000★</button>
+    </div>
+    <p id="msg"></p>
+    <p><a href="live.html" style="color:var(--cyan)">Live</a> · <a href="/api/health" style="color:var(--cyan)">health</a> · <a href="/api/gifts-catalog" style="color:var(--cyan)">catalog</a></p>
+  </div>
+  <script>
+    const state = { bal: 2480, left: 54, right: 46 };
+    const $ = (id) => document.getElementById(id);
+    document.querySelectorAll('.gifts button').forEach((b) => {
+      b.onclick = async () => {
+        const cost = Number(b.dataset.cost);
+        if (state.bal < cost) {
+          $('msg').textContent = 'insufficient_stars · openInvoice ' + cost + ' ★';
+          return;
+        }
+        state.bal -= cost;
+        state.left += 4;
+        $('bal').textContent = state.bal.toLocaleString();
+        $('barL').style.width = state.left + '%';
+        $('msg').textContent = 'RotationPay locked ' + cost + ' ★ · ' + b.dataset.name;
+        try {
+          await fetch('/api/coach', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ durationSec: 30, totalViewers: 12, validViewers: 8, gifters: 1 }) });
+        } catch (_) {}
+      };
+    });
+    $('cardL').onclick = () => { $('cardL').classList.add('pick'); $('cardR').classList.remove('pick'); };
+    $('cardR').onclick = () => { $('cardR').classList.add('pick'); $('cardL').classList.remove('pick'); };
+  </script>
+</body>
+</html>
