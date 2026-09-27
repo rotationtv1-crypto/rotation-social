@@ -1,1 +1,69 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Rotation Social</title><meta name="theme-color" content="#050505"><style>body{margin:0;background:#050505;color:#F4F4F8;font-family:-apple-system,sans-serif;padding:24px}a{color:#00F2FE}</style></head><body><p>RotationTV Network LLC</p><h1>rotation-social</h1><p><a href="live.html">Live</a> · <a href="pk.html">PK Battle</a> · <a href="llm.html">LLM gateway UI</a> · <a href="/api/health">health</a></p><p>Static Pages + Vercel functions + Deno runtime. Live gifts: Telegram Stars / RotationPay.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rotation Studio</title>
+  <meta name="theme-color" content="#10110e" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./studio.css" />
+</head>
+<body>
+  <header class="rail">
+    <div class="brand">Rotation Studio<span>One display · Live, PK, LLM</span></div>
+    <div class="meta">
+      <span class="chip on" id="liveFlag"><i class="dot"></i>Live</span>
+      <span class="chip" id="rev">sync 0</span>
+      <span class="chip" id="api">checking</span>
+    </div>
+  </header>
+  <main class="wall">
+    <section class="stage" id="stage">
+      <div class="kicker" id="kicker">Display</div>
+      <h1 id="title">Rotation Studio</h1>
+      <p id="body">The stage follows whichever pane you touch.</p>
+      <div class="meters">
+        <div class="meter">
+          <span class="kicker" id="hostLabel">Host</span>
+          <b id="hostScore">54</b>
+          <div class="bar"><i id="barL"></i></div>
+        </div>
+        <div class="meter">
+          <span class="kicker">Guest</span>
+          <b id="guestScore">46</b>
+          <div class="bar"><i id="barR"></i></div>
+        </div>
+      </div>
+      <p class="reply">Stars on the rail: <b id="stars">2,480</b></p>
+    </section>
+    <aside class="deck">
+      <div class="tabs" role="tablist">
+        <button type="button" data-pane="live">Live</button>
+        <button type="button" data-pane="pk">PK</button>
+        <button type="button" data-pane="llm">LLM</button>
+      </div>
+      <div>
+        <button type="button" id="air">Toggle on air</button>
+      </div>
+      <div>
+        <label for="viewers">Viewers</label>
+        <input id="viewers" type="number" min="0" value="12" />
+      </div>
+      <div class="gifts">
+        <button type="button" data-gift="Rose" data-cost="1">Rose · 1</button>
+        <button type="button" data-gift="Mask" data-cost="100">Mask · 100</button>
+        <button type="button" data-gift="Crystal" data-cost="999">Crystal · 999</button>
+        <button type="button" data-gift="Queen" data-cost="10000">Queen · 10000</button>
+      </div>
+      <div>
+        <label for="prompt">LLM to the display</label>
+        <textarea id="prompt" maxlength="2000" placeholder="Ask for a room brief, a PK call, or a host line."></textarea>
+        <button class="go" id="go" type="button">Send to display</button>
+      </div>
+    </aside>
+  </main>
+  <script src="./studio.js"></script>
+</body>
+</html>

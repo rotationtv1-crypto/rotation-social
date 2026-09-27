@@ -1,28 +1,9 @@
-# rotation-social
+# Rotation Studio
 
-RotationTV Network LLC first-party PWA.
+One display. Live, PK, and the LLM write the same state (`rtv.studio.v1` plus a `BroadcastChannel`), so every open tab shows the same stage.
 
-- Static: GitHub Pages
-- Runtime: Deno Deploy (`deno/main.ts`)
-- Payments: PayPal `rotationtv1@gmail.com`
-- LLM: `deno/llm.ts` — **not** the pasted Express `server.js`
+- Static display: GitHub Pages (`index.html`, `?pane=live|pk|llm`)
+- Functions, only when this repo is deployed on the existing Vercel project: `/api/health`, `/api/query`, `/api/coach`, `/api/gifts-catalog`
+- Model: `XAI_API_KEY` (Grok) or `GEMINI_API_KEY`. Neither key is in the page. Without one, the stage still updates and says the gateway is offline.
 
-## Do not use Helm / Terraform unless you stand up a cluster
-Chosen environment is **Deno Deploy + GitHub Pages**. K8s charts would be a third stack.
-
-## Local Deno
-
-```bash
-deno task start
-bash scripts/probe.sh http://localhost:5000
-```
-
-## Deno Deploy secrets
-
-`DENO_DEPLOY_TOKEN`, `XAI_API_KEY` or `OPENAI_API_KEY`, `LLM_GATEWAY_KEY`, `FRONTEND_ORIGIN`
-
-## Pages
-
-Enable Settings → Pages → GitHub Actions.
-
-PWA: iOS Safari Share → Add to Home Screen. Android Chrome → Install app.
+Deno Deploy Classic is retired and is not part of this stack. Do not add a second origin for the same studio.
